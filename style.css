@@ -1,0 +1,306 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #333333;
+  --border-color: #e0e0e0;
+  --link-color: #0066cc;
+  --link-hover: #0052a3;
+  --language-spanish: #dc3545;
+  --language-english: #0066cc;
+  --core-color: #ffc107;
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --border-radius: 8px;
+  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  padding: var(--spacing-md);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 2px solid var(--border-color);
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.subtitle {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.controls {
+  margin-bottom: var(--spacing-lg);
+}
+
+.search-container {
+  margin-bottom: var(--spacing-md);
+}
+
+#search-input {
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-sm);
+  font-size: 1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: border-color 0.2s;
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: var(--link-color);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.filters select {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.95rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: var(--link-color);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.results-count {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.talks-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.talk-card {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  background-color: var(--bg-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.talk-card .language-badge.spanish {
+  border-left: 4px solid var(--language-spanish);
+}
+
+.talk-card .language-badge.english {
+  border-left: 4px solid var(--language-english);
+}
+
+.talk-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.talk-card.core {
+  border-left: 4px solid var(--core-color);
+}
+
+.talk-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-sm);
+  gap: var(--spacing-sm);
+}
+
+.talk-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  flex: 1;
+  line-height: 1.4;
+}
+
+.language-badge {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+.language-badge.spanish {
+  background-color: var(--language-spanish);
+  color: white;
+  border: 2px solid #c82333;
+}
+
+.language-badge.english {
+  background-color: var(--language-english);
+  color: white;
+  border: 2px solid #0052a3;
+}
+
+.talk-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.meta-badge {
+  padding: 0.2rem 0.6rem;
+  background-color: #f0f0f0;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+.core-badge {
+  background-color: var(--core-color);
+  color: #333;
+  font-weight: 600;
+}
+
+.talk-description {
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+.talk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--border-color);
+}
+
+.talk-link {
+  color: var(--link-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--link-color);
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.talk-link:hover {
+  background-color: var(--link-color);
+  color: white;
+}
+
+.talk-link:visited {
+  color: var(--link-color);
+}
+
+.loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: #666;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--spacing-lg);
+  color: #666;
+}
+
+footer {
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 2px solid var(--border-color);
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: var(--spacing-sm);
+  }
+  
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  .talks-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filters select {
+    width: 100%;
+  }
+  
+  .talk-header {
+    flex-direction: column;
+  }
+  
+  .language-badge {
+    align-self: flex-start;
+  }
+}
+

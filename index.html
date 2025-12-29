@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eduardo Ferro - Talks</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Talks</h1>
+    <p class="subtitle">A collection of talks and presentations</p>
+  </header>
+  
+  <main>
+    <div class="controls">
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search talks..." aria-label="Search talks">
+      </div>
+      
+      <div class="filters">
+        <select id="year-filter" aria-label="Filter by year">
+          <option value="">All Years</option>
+        </select>
+        
+        <select id="language-filter" aria-label="Filter by language">
+          <option value="">All Languages</option>
+          <option value="Spanish">Spanish</option>
+          <option value="English">English</option>
+        </select>
+        
+        <label class="checkbox-label">
+          <input type="checkbox" id="core-filter">
+          <span>Core talks only</span>
+        </label>
+      </div>
+      
+      <div class="results-count">
+        <span id="results-count">0</span> talks
+      </div>
+    </div>
+    
+    <div id="talks-container" class="talks-container">
+      <div class="loading">Loading talks...</div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>&copy; Eduardo Ferro</p>
+  </footer>
+  
+  <script src="script.js"></script>
+</body>
+</html>
+

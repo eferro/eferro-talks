@@ -129,5 +129,9 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-document.addEventListener('DOMContentLoaded', loadTalks);
+document.addEventListener('DOMContentLoaded', () => {
+  loadTalks();
+  // Set current year in footer
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+});
 

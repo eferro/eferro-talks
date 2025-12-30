@@ -129,7 +129,7 @@ function applyFilters() {
   
   filteredTalks = allTalks.filter(talk => {
     if (yearFilter && talk.year !== yearFilter) return false;
-    if (languageFilter && talk.language !== languageFilter) return false;
+    if (languageFilter && talk.talk_language !== languageFilter) return false;
     if (coreFilter && !talk.core) return false;
     if (searchQuery) {
       const searchableText = [
@@ -178,8 +178,8 @@ function renderTalks() {
 function createTalkCard(talk) {
   const card = document.createElement('article');
   card.className = `talk-card${talk.core ? ' core' : ''}`;
-  
-  const language = talk.language || 'Unknown';
+
+  const language = talk.talk_language || 'Unknown';
   const languageClass = language.toLowerCase();
   
   card.innerHTML = `

@@ -1,7 +1,49 @@
 let allTalks = [];
 let filteredTalks = [];
+let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
 
-function getTalkField(talk, fieldName, lang = 'es') {
+const translations = {
+  es: {
+    title: 'Charlas',
+    subtitle: 'Una colección de charlas y presentaciones de Eduardo Ferro',
+    searchPlaceholder: 'Buscar charlas...',
+    searchLabel: 'Buscar charlas',
+    allYears: 'Todos los años',
+    filterByYear: 'Filtrar por año',
+    allLanguages: 'Todos los idiomas',
+    filterByLanguage: 'Filtrar por idioma',
+    spanish: 'Español',
+    english: 'Inglés',
+    coreOnly: 'Solo charlas core',
+    talksCount: 'charlas',
+    loading: 'Cargando charlas...',
+    noResults: 'No se encontraron charlas que coincidan con tus filtros.',
+    errorLoading: 'Error al cargar las charlas. Por favor, recarga la página.'
+  },
+  en: {
+    title: 'Talks',
+    subtitle: 'A collection of talks and presentations by Eduardo Ferro',
+    searchPlaceholder: 'Search talks...',
+    searchLabel: 'Search talks',
+    allYears: 'All Years',
+    filterByYear: 'Filter by year',
+    allLanguages: 'All Languages',
+    filterByLanguage: 'Filter by language',
+    spanish: 'Spanish',
+    english: 'English',
+    coreOnly: 'Core talks only',
+    talksCount: 'talks',
+    loading: 'Loading talks...',
+    noResults: 'No talks found matching your filters.',
+    errorLoading: 'Error loading talks. Please refresh the page.'
+  }
+};
+
+function t(key) {
+  return translations[currentLanguage][key] || key;
+}
+
+function getTalkField(talk, fieldName, lang = currentLanguage) {
   const langField = talk[`${fieldName}_${lang}`];
   if (langField) return langField;
 
@@ -10,6 +52,39 @@ function getTalkField(talk, fieldName, lang = 'es') {
   if (fallbackField) return fallbackField;
 
   return talk[fieldName] || '';
+}
+
+function updateUILanguage() {
+  document.documentElement.lang = currentLanguage;
+  document.getElementById('page-title').textContent = t('title');
+  document.getElementById('page-subtitle').textContent = t('subtitle');
+  document.getElementById('search-input').placeholder = t('searchPlaceholder');
+  document.getElementById('search-input').setAttribute('aria-label', t('searchLabel'));
+  document.getElementById('year-filter').setAttribute('aria-label', t('filterByYear'));
+  document.getElementById('year-filter').options[0].textContent = t('allYears');
+  document.getElementById('language-filter').setAttribute('aria-label', t('filterByLanguage'));
+  document.getElementById('language-filter').options[0].textContent = t('allLanguages');
+  document.getElementById('language-filter').options[1].textContent = t('spanish');
+  document.getElementById('language-filter').options[2].textContent = t('english');
+  document.querySelector('.checkbox-label span').textContent = t('coreOnly');
+
+  const resultsCountText = document.querySelector('.results-count');
+  const count = document.getElementById('results-count').textContent;
+  resultsCountText.innerHTML = `<span id="results-count">${count}</span> ${t('talksCount')}`;
+}
+
+function setLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('preferredLanguage', lang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.dataset.lang === lang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-checked', isActive);
+  });
+
+  updateUILanguage();
+  renderTalks();
 }
 
 async function loadTalks() {
@@ -25,7 +100,7 @@ async function loadTalks() {
   } catch (error) {
     console.error('Error loading talks:', error);
     document.getElementById('talks-container').innerHTML =
-      '<div class="empty-state">Error al cargar las charlas. Por favor, recarga la página.</div>';
+      `<div class="empty-state">${t('errorLoading')}</div>`;
   }
 }
 
@@ -76,7 +151,7 @@ function renderTalks() {
   const resultsCount = document.getElementById('results-count');
   
   if (filteredTalks.length === 0) {
-    container.innerHTML = '<div class="empty-state">No se encontraron charlas que coincidan con tus filtros.</div>';
+    container.innerHTML = `<div class="empty-state">${t('noResults')}</div>`;
     resultsCount.textContent = '0';
     return;
   }
@@ -141,8 +216,19 @@ function escapeHtml(text) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.dataset.lang === currentLanguage;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-checked', isActive);
+
+    btn.addEventListener('click', () => {
+      setLanguage(btn.dataset.lang);
+    });
+  });
+
+  updateUILanguage();
   loadTalks();
-  // Set current year in footer
+
   document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 

@@ -2,3 +2,5 @@
 .specstory
 .specstory/**
 
+# Backup files
+*.backup

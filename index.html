@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,41 +9,41 @@
 <body>
   <header>
     <div>
-      <h1>Talks</h1>
-      <p class="subtitle">A collection of talks and presentations by Eduardo Ferro</p>
+      <h1>Charlas</h1>
+      <p class="subtitle">Una colección de charlas y presentaciones de Eduardo Ferro</p>
     </div>
   </header>
   
   <main>
     <div class="controls">
       <div class="search-container">
-        <input type="text" id="search-input" placeholder="Search talks..." aria-label="Search talks">
+        <input type="text" id="search-input" placeholder="Buscar charlas..." aria-label="Buscar charlas">
       </div>
       
       <div class="filters">
-        <select id="year-filter" aria-label="Filter by year">
-          <option value="">All Years</option>
+        <select id="year-filter" aria-label="Filtrar por año">
+          <option value="">Todos los años</option>
         </select>
-        
-        <select id="language-filter" aria-label="Filter by language">
-          <option value="">All Languages</option>
-          <option value="Spanish">Spanish</option>
-          <option value="English">English</option>
+
+        <select id="language-filter" aria-label="Filtrar por idioma">
+          <option value="">Todos los idiomas</option>
+          <option value="Spanish">Español</option>
+          <option value="English">Inglés</option>
         </select>
-        
+
         <label class="checkbox-label">
           <input type="checkbox" id="core-filter">
-          <span>Core talks only</span>
+          <span>Solo charlas core</span>
         </label>
       </div>
       
       <div class="results-count">
-        <span id="results-count">0</span> talks
+        <span id="results-count">0</span> charlas
       </div>
     </div>
     
     <div id="talks-container" class="talks-container">
-      <div class="loading">Loading talks...</div>
+      <div class="loading">Cargando charlas...</div>
     </div>
   </main>
   

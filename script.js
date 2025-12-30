@@ -1,6 +1,17 @@
 let allTalks = [];
 let filteredTalks = [];
 
+function getTalkField(talk, fieldName, lang = 'es') {
+  const langField = talk[`${fieldName}_${lang}`];
+  if (langField) return langField;
+
+  const fallbackLang = lang === 'es' ? 'en' : 'es';
+  const fallbackField = talk[`${fieldName}_${fallbackLang}`];
+  if (fallbackField) return fallbackField;
+
+  return talk[fieldName] || '';
+}
+
 async function loadTalks() {
   try {
     const response = await fetch('data/talks.json');
@@ -13,8 +24,8 @@ async function loadTalks() {
     renderTalks();
   } catch (error) {
     console.error('Error loading talks:', error);
-    document.getElementById('talks-container').innerHTML = 
-      '<div class="empty-state">Error loading talks. Please refresh the page.</div>';
+    document.getElementById('talks-container').innerHTML =
+      '<div class="empty-state">Error al cargar las charlas. Por favor, recarga la página.</div>';
   }
 }
 
@@ -47,10 +58,10 @@ function applyFilters() {
     if (coreFilter && !talk.core) return false;
     if (searchQuery) {
       const searchableText = [
-        talk.name,
-        talk.description,
+        getTalkField(talk, 'name'),
+        getTalkField(talk, 'description'),
         talk.place,
-        talk.key_learning
+        getTalkField(talk, 'key_learning')
       ].filter(Boolean).join(' ').toLowerCase();
       if (!searchableText.includes(searchQuery)) return false;
     }
@@ -65,7 +76,7 @@ function renderTalks() {
   const resultsCount = document.getElementById('results-count');
   
   if (filteredTalks.length === 0) {
-    container.innerHTML = '<div class="empty-state">No talks found matching your filters.</div>';
+    container.innerHTML = '<div class="empty-state">No se encontraron charlas que coincidan con tus filtros.</div>';
     resultsCount.textContent = '0';
     return;
   }
@@ -98,7 +109,7 @@ function createTalkCard(talk) {
   
   card.innerHTML = `
     <div class="talk-header">
-      <h2 class="talk-title">${escapeHtml(talk.name)}</h2>
+      <h2 class="talk-title">${escapeHtml(getTalkField(talk, 'name'))}</h2>
       <span class="language-badge ${languageClass}" aria-label="Language: ${language}">
         ${language === 'Spanish' ? 'ES' : language === 'English' ? 'EN' : language}
       </span>
@@ -110,7 +121,7 @@ function createTalkCard(talk) {
       ${talk.core ? `<span class="meta-item"><span class="meta-badge core-badge">Core</span></span>` : ''}
     </div>
     
-    ${talk.description ? `<p class="talk-description">${escapeHtml(talk.description)}</p>` : ''}
+    ${getTalkField(talk, 'description') ? `<p class="talk-description">${escapeHtml(getTalkField(talk, 'description'))}</p>` : ''}
     
     <div class="talk-links">
       ${talk.blog ? `<a href="${talk.blog}" target="_blank" rel="noopener noreferrer" class="talk-link">📝 Blog</a>` : ''}

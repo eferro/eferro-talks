@@ -26,12 +26,15 @@ No lo uses para otros idiomas.
 - Traduce a español neutro de España, salvo que el usuario pida otro dialecto.
 - **Prioriza la naturalidad y claridad técnica**: Usa términos técnicos en inglés cuando sean más claros o estén ampliamente establecidos en la comunidad de desarrollo hispanohablante.
 - Respeta terminología técnica común en desarrollo de software que se mantiene en inglés:
-  - **Términos de control de versiones**: "pull request", "commit", "branch", "merge", "rebase", "cherry-pick"
-  - **CI/CD y DevOps**: "pipeline", "build", "deploy", "deployment", "release", "rollback", "staging"
-  - **Arquitectura**: "frontend", "backend", "endpoint", "middleware", "API", "microservices"
-  - **Testing**: "test suite", "unit test", "integration test", "mock", "stub", "fixture"
-  - **Metodologías**: "sprint", "backlog", "daily", "standup", "retrospective"
-  - **Conceptos técnicos**: "issue", "bug", "feature flag", "tech debt", "refactoring", "code review"
+  - **Términos de control de versiones**: "pull request", "commit", "branch", "merge", "rebase", "cherry-pick", "trunk-based development"
+  - **CI/CD y DevOps**: "pipeline", "build", "deploy", "deployment", "release", "rollback", "staging", "blue-green deployment", "canary deployment", "continuous delivery", "continuous integration"
+  - **Arquitectura**: "frontend", "backend", "endpoint", "middleware", "API", "microservices", "clean code", "SOLID", "DDD"
+  - **Testing**: "test suite", "unit test", "integration test", "mock", "stub", "fixture", "TDD", "BDD"
+  - **Metodologías y Prácticas**: "sprint", "backlog", "daily", "standup", "retrospective", "XP", "Lean", "Agile", "pair programming", "DevOps"
+  - **Conceptos técnicos**: "issue", "bug", "feature flag", "feature toggle", "tech debt", "refactoring", "code review"
+  - **Producto y Discovery**: "roadmap", "MVP", "discovery", "product-market fit", "feedback loop"
+  - **Plataforma y DevEx**: "platform", "DevEx", "self-service", "dark launch"
+  - **Gestión de Flujo**: "WIP", "lead time", "throughput", "bottleneck"
 - **Regla general**: Si un término técnico en inglés es comúnmente usado en español por profesionales (como "deploy" en lugar de "desplegar"), mantenlo en inglés.
 - Puedes combinar términos técnicos en inglés con texto en español de forma natural:
   - ✅ "Hacer un merge del branch"
@@ -56,7 +59,11 @@ No lo uses para otros idiomas.
 - "Hacer deploy" (better than "desplegar" in many contexts)
 - "Reviewear el pull request" (common in teams)
 - "El bug está en el backlog" (natural mix)
-- "Feature flag", "tech debt", "refactoring"
+- "Aplicar TDD y pair programming en el equipo"
+- "Implementar un MVP con feedback loops rápidos"
+- "Reducir el WIP para mejorar el throughput"
+- "Feature flag", "tech debt", "refactoring", "clean code"
+- "Mejorar el DevEx de la platform"
 
 **Translate when:**
 - A clear, widely-accepted Spanish term exists

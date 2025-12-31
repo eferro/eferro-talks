@@ -94,6 +94,10 @@ async function loadTalks() {
       throw new Error('Failed to load talks data');
     }
     allTalks = await response.json();
+    console.log('DEBUG loadTalks: Total talks loaded:', allTalks.length);
+    console.log('DEBUG loadTalks: First talk:', allTalks[0]);
+    console.log('DEBUG loadTalks: First talk keys:', Object.keys(allTalks[0]));
+    console.log('DEBUG loadTalks: talk_language values:', allTalks.slice(0, 5).map(t => t.talk_language));
     filteredTalks = [...allTalks];
     initializeFilters();
     renderTalks();
@@ -180,6 +184,12 @@ function createTalkCard(talk) {
   card.className = `talk-card${talk.core ? ' core' : ''}`;
 
   const language = talk.talk_language || 'Unknown';
+  console.log('DEBUG createTalkCard:', {
+    name: talk.name_es ? talk.name_es.substring(0, 30) : 'N/A',
+    talk_language: talk.talk_language,
+    language: language,
+    allKeys: Object.keys(talk)
+  });
   const languageClass = language.toLowerCase();
   
   card.innerHTML = `

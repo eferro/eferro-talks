@@ -18,7 +18,8 @@ const translations = {
     talksCount: 'charlas',
     loading: 'Cargando charlas...',
     noResults: 'No se encontraron charlas que coincidan con tus filtros.',
-    errorLoading: 'Error al cargar las charlas. Por favor, recarga la página.'
+    errorLoading: 'Error al cargar las charlas. Por favor, recarga la página.',
+    viewFullDetails: 'Ver detalles completos'
   },
   en: {
     title: 'Talks',
@@ -35,7 +36,8 @@ const translations = {
     talksCount: 'talks',
     loading: 'Loading talks...',
     noResults: 'No talks found matching your filters.',
-    errorLoading: 'Error loading talks. Please refresh the page.'
+    errorLoading: 'Error loading talks. Please refresh the page.',
+    viewFullDetails: 'View full details'
   }
 };
 
@@ -179,6 +181,10 @@ function renderTalks() {
   container.appendChild(fragment);
 }
 
+function createTalkId(talk) {
+  return `${talk.year}-${talk.place}`.toLowerCase().replace(/\s+/g, '-');
+}
+
 function createTalkCard(talk) {
   const card = document.createElement('article');
   card.className = `talk-card${talk.core ? ' core' : ''}`;
@@ -191,7 +197,11 @@ function createTalkCard(talk) {
     allKeys: Object.keys(talk)
   });
   const languageClass = language.toLowerCase();
-  
+  const talkId = createTalkId(talk);
+  const hasKeyLearning = getTalkField(talk, 'key_learning');
+  const hasKeyPoints = getTalkField(talk, 'key_points');
+  const hasDetailContent = hasKeyLearning || hasKeyPoints;
+
   card.innerHTML = `
     <div class="talk-header">
       <h2 class="talk-title">${escapeHtml(getTalkField(talk, 'name'))}</h2>
@@ -199,22 +209,30 @@ function createTalkCard(talk) {
         ${language === 'Spanish' ? 'ES' : language === 'English' ? 'EN' : language}
       </span>
     </div>
-    
+
     <div class="talk-meta">
       ${talk.year ? `<span class="meta-item"><span class="meta-badge">${talk.year}</span></span>` : ''}
       ${talk.place ? `<span class="meta-item">📍 ${escapeHtml(talk.place)}</span>` : ''}
       ${talk.core ? `<span class="meta-item"><span class="meta-badge core-badge">Core</span></span>` : ''}
     </div>
-    
+
     ${getTalkField(talk, 'description') ? `<p class="talk-description">${escapeHtml(getTalkField(talk, 'description'))}</p>` : ''}
-    
+
+    ${hasDetailContent ? `
+      <div class="talk-actions">
+        <a href="talk-detail.html?id=${talkId}" class="detail-button">
+          📖 ${t('viewFullDetails')}
+        </a>
+      </div>
+    ` : ''}
+
     <div class="talk-links">
       ${talk.blog ? `<a href="${talk.blog}" target="_blank" rel="noopener noreferrer" class="talk-link">📝 Blog</a>` : ''}
       ${talk.video ? `<a href="${talk.video}" target="_blank" rel="noopener noreferrer" class="talk-link">🎥 Video</a>` : ''}
       ${talk.presentation ? `<a href="${talk.presentation}" target="_blank" rel="noopener noreferrer" class="talk-link">📊 Slides</a>` : ''}
     </div>
   `;
-  
+
   return card;
 }
 

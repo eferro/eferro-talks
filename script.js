@@ -82,11 +82,14 @@ function updateUILanguage() {
   document.getElementById('language-filter').options[2].textContent = t('english');
   document.getElementById('type-filter').setAttribute('aria-label', t('filterByType'));
   document.getElementById('type-filter').options[0].textContent = t('allTypes');
-  document.querySelector('.checkbox-label span').textContent = t('coreOnly');
 
-  const resultsCountText = document.querySelector('.results-count');
-  const count = document.getElementById('results-count').textContent;
-  resultsCountText.innerHTML = `<span id="results-count">${count}</span> ${t('talksCount')}`;
+  const typeFilter = document.getElementById('type-filter');
+  for (let i = 1; i < typeFilter.options.length; i++) {
+    const option = typeFilter.options[i];
+    option.textContent = t(option.value);
+  }
+
+  document.querySelector('.checkbox-label span').textContent = t('coreOnly');
 }
 
 function setLanguage(lang) {
@@ -182,14 +185,36 @@ function applyFilters() {
 function renderTalks() {
   const container = document.getElementById('talks-container');
   const resultsCount = document.getElementById('results-count');
-  
+
   if (filteredTalks.length === 0) {
     container.innerHTML = `<div class="empty-state">${t('noResults')}</div>`;
     resultsCount.textContent = '0';
     return;
   }
-  
-  resultsCount.textContent = filteredTalks.length;
+
+  const typeCounts = filteredTalks.reduce((acc, talk) => {
+    const type = talk.type || 'unknown';
+    acc[type] = (acc[type] || 0) + 1;
+    return acc;
+  }, {});
+
+  const typeEntries = Object.entries(typeCounts).sort(([a], [b]) => a.localeCompare(b));
+
+  if (typeEntries.length === 1) {
+    const [type, count] = typeEntries[0];
+    const translatedType = t(type);
+    const pluralSuffix = count !== 1 && currentLanguage === 'en' ? 's' : '';
+    resultsCount.textContent = `${count} ${translatedType}${pluralSuffix}`;
+  } else {
+    const typeLabels = typeEntries
+      .map(([type, count]) => {
+        const translatedType = t(type);
+        const pluralSuffix = count !== 1 && currentLanguage === 'en' ? 's' : '';
+        return `${count} ${translatedType}${pluralSuffix}`;
+      })
+      .join(', ');
+    resultsCount.textContent = `${filteredTalks.length} (${typeLabels})`;
+  }
   
   const sortedTalks = [...filteredTalks].sort((a, b) => {
     const yearA = parseInt(a.year) || 0;

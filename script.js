@@ -70,7 +70,7 @@ function getTalkField(talk, fieldName, lang = currentLanguage) {
 
 function updateUILanguage() {
   document.documentElement.lang = currentLanguage;
-  document.getElementById('page-title').textContent = t('title');
+  document.title = t('title');
   document.getElementById('page-subtitle').textContent = t('subtitle');
   document.getElementById('search-input').placeholder = t('searchPlaceholder');
   document.getElementById('search-input').setAttribute('aria-label', t('searchLabel'));

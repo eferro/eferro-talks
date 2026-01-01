@@ -12,8 +12,14 @@ const translations = {
     filterByYear: 'Filtrar por año',
     allLanguages: 'Todos los idiomas',
     filterByLanguage: 'Filtrar por idioma',
+    allTypes: 'Todos los tipos',
+    filterByType: 'Filtrar por tipo',
     spanish: 'Español',
     english: 'Inglés',
+    talk: 'Charla',
+    workshop: 'Taller',
+    podcast: 'Podcast',
+    panel: 'Panel',
     coreOnly: 'Solo charlas core',
     talksCount: 'charlas',
     loading: 'Cargando charlas...',
@@ -30,8 +36,14 @@ const translations = {
     filterByYear: 'Filter by year',
     allLanguages: 'All Languages',
     filterByLanguage: 'Filter by language',
+    allTypes: 'All Types',
+    filterByType: 'Filter by type',
     spanish: 'Spanish',
     english: 'English',
+    talk: 'Talk',
+    workshop: 'Workshop',
+    podcast: 'Podcast',
+    panel: 'Panel',
     coreOnly: 'Core talks only',
     talksCount: 'talks',
     loading: 'Loading talks...',
@@ -68,6 +80,8 @@ function updateUILanguage() {
   document.getElementById('language-filter').options[0].textContent = t('allLanguages');
   document.getElementById('language-filter').options[1].textContent = t('spanish');
   document.getElementById('language-filter').options[2].textContent = t('english');
+  document.getElementById('type-filter').setAttribute('aria-label', t('filterByType'));
+  document.getElementById('type-filter').options[0].textContent = t('allTypes');
   document.querySelector('.checkbox-label span').textContent = t('coreOnly');
 
   const resultsCountText = document.querySelector('.results-count');
@@ -113,16 +127,27 @@ async function loadTalks() {
 function initializeFilters() {
   const yearFilter = document.getElementById('year-filter');
   const years = [...new Set(allTalks.map(talk => talk.year).filter(Boolean))].sort((a, b) => b - a);
-  
+
   years.forEach(year => {
     const option = document.createElement('option');
     option.value = year;
     option.textContent = year;
     yearFilter.appendChild(option);
   });
-  
+
+  const typeFilter = document.getElementById('type-filter');
+  const types = [...new Set(allTalks.map(talk => talk.type).filter(Boolean))].sort();
+
+  types.forEach(type => {
+    const option = document.createElement('option');
+    option.value = type;
+    option.textContent = t(type);
+    typeFilter.appendChild(option);
+  });
+
   yearFilter.addEventListener('change', applyFilters);
   document.getElementById('language-filter').addEventListener('change', applyFilters);
+  document.getElementById('type-filter').addEventListener('change', applyFilters);
   document.getElementById('core-filter').addEventListener('change', applyFilters);
   document.getElementById('search-input').addEventListener('input', applyFilters);
 }
@@ -130,12 +155,14 @@ function initializeFilters() {
 function applyFilters() {
   const yearFilter = document.getElementById('year-filter').value;
   const languageFilter = document.getElementById('language-filter').value;
+  const typeFilter = document.getElementById('type-filter').value;
   const coreFilter = document.getElementById('core-filter').checked;
   const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
-  
+
   filteredTalks = allTalks.filter(talk => {
     if (yearFilter && talk.year !== yearFilter) return false;
     if (languageFilter && talk.talk_language !== languageFilter) return false;
+    if (typeFilter && talk.type !== typeFilter) return false;
     if (coreFilter && !talk.core) return false;
     if (searchQuery) {
       const searchableText = [
@@ -148,7 +175,7 @@ function applyFilters() {
     }
     return true;
   });
-  
+
   renderTalks();
 }
 
@@ -213,6 +240,7 @@ function createTalkCard(talk) {
     <div class="talk-meta">
       ${talk.year ? `<span class="meta-item"><span class="meta-badge">${talk.year}</span></span>` : ''}
       ${talk.place ? `<span class="meta-item">📍 ${escapeHtml(talk.place)}</span>` : ''}
+      ${talk.type ? `<span class="meta-item"><span class="meta-badge type-badge">${t(talk.type)}</span></span>` : ''}
       ${talk.core ? `<span class="meta-item"><span class="meta-badge core-badge">Core</span></span>` : ''}
     </div>
 

@@ -170,7 +170,6 @@ main {
 
 #search-input {
   width: 100%;
-  max-width: 500px;
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: 1rem;
   border: 1px solid var(--border-gray-300);
@@ -195,6 +194,7 @@ main {
 }
 
 .filters select {
+  min-width: 160px;
   padding: var(--spacing-sm) var(--spacing-md);
   font-size: 0.875rem;
   font-weight: 600;

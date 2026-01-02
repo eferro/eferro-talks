@@ -1,3 +1,5 @@
+import { escapeHtml, getTalkField, createTalkId } from './script-utils.js';
+
 let allTalks = [];
 let filteredTalks = [];
 let currentLanguage = localStorage.getItem('preferredLanguage') || 'es';
@@ -55,17 +57,6 @@ const translations = {
 
 function t(key) {
   return translations[currentLanguage][key] || key;
-}
-
-function getTalkField(talk, fieldName, lang = currentLanguage) {
-  const langField = talk[`${fieldName}_${lang}`];
-  if (langField) return langField;
-
-  const fallbackLang = lang === 'es' ? 'en' : 'es';
-  const fallbackField = talk[`${fieldName}_${fallbackLang}`];
-  if (fallbackField) return fallbackField;
-
-  return talk[fieldName] || '';
 }
 
 function updateUILanguage() {
@@ -172,10 +163,10 @@ function applyFilters() {
     if (coreFilter && !talk.core) return false;
     if (searchQuery) {
       const searchableText = [
-        getTalkField(talk, 'name'),
-        getTalkField(talk, 'description'),
+        getTalkField(talk, 'name', currentLanguage),
+        getTalkField(talk, 'description', currentLanguage),
         talk.place,
-        getTalkField(talk, 'key_learning')
+        getTalkField(talk, 'key_learning', currentLanguage)
       ]
         .filter(Boolean)
         .join(' ')
@@ -239,10 +230,6 @@ function renderTalks() {
   container.appendChild(fragment);
 }
 
-function createTalkId(talk) {
-  return `${talk.year}-${talk.place}`.toLowerCase().replace(/\s+/g, '-');
-}
-
 function createTalkCard(talk) {
   const card = document.createElement('article');
   card.className = `talk-card${talk.core ? ' core' : ''}`;
@@ -256,13 +243,13 @@ function createTalkCard(talk) {
   });
   const languageClass = language.toLowerCase();
   const talkId = createTalkId(talk);
-  const hasKeyLearning = getTalkField(talk, 'key_learning');
-  const hasKeyPoints = getTalkField(talk, 'key_points');
+  const hasKeyLearning = getTalkField(talk, 'key_learning', currentLanguage);
+  const hasKeyPoints = getTalkField(talk, 'key_points', currentLanguage);
   const hasDetailContent = hasKeyLearning || hasKeyPoints;
 
   card.innerHTML = `
     <div class="talk-header">
-      <h2 class="talk-title">${escapeHtml(getTalkField(talk, 'name'))}</h2>
+      <h2 class="talk-title">${escapeHtml(getTalkField(talk, 'name', currentLanguage))}</h2>
       <span class="language-badge ${languageClass}" aria-label="Language: ${language}">
         ${language === 'Spanish' ? 'ES' : language === 'English' ? 'EN' : language}
       </span>
@@ -275,7 +262,7 @@ function createTalkCard(talk) {
       ${talk.core ? `<span class="meta-item"><span class="meta-badge core-badge">Core</span></span>` : ''}
     </div>
 
-    ${getTalkField(talk, 'description') ? `<p class="talk-description">${escapeHtml(getTalkField(talk, 'description'))}</p>` : ''}
+    ${getTalkField(talk, 'description', currentLanguage) ? `<p class="talk-description">${escapeHtml(getTalkField(talk, 'description', currentLanguage))}</p>` : ''}
 
     ${
       hasDetailContent
@@ -297,13 +284,6 @@ function createTalkCard(talk) {
   `;
 
   return card;
-}
-
-function escapeHtml(text) {
-  if (!text) return '';
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

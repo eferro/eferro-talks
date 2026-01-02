@@ -124,34 +124,48 @@ function renderTalkDetail(talk) {
       </div>
     </header>
 
-    ${description ? `
+    ${
+      description
+        ? `
       <section class="detail-section">
         <h2>${t('description')}</h2>
         <div class="detail-content">
           <p>${escapeHtml(description)}</p>
         </div>
       </section>
-    ` : ''}
+    `
+        : ''
+    }
 
-    ${keyLearning ? `
+    ${
+      keyLearning
+        ? `
       <section class="detail-section key-learning-section">
         <h2>${t('keyLearning')}</h2>
         <div class="detail-content markdown-content">
           ${parseMarkdown(keyLearning)}
         </div>
       </section>
-    ` : ''}
+    `
+        : ''
+    }
 
-    ${keyPoints ? `
+    ${
+      keyPoints
+        ? `
       <section class="detail-section key-points-section">
         <h2>${t('keyPoints')}</h2>
         <div class="detail-content markdown-content">
           ${parseMarkdown(keyPoints)}
         </div>
       </section>
-    ` : ''}
+    `
+        : ''
+    }
 
-    ${(talk.blog || talk.video || talk.presentation) ? `
+    ${
+      talk.blog || talk.video || talk.presentation
+        ? `
       <section class="detail-section detail-links-section">
         <h2>${t('links')}</h2>
         <div class="detail-links">
@@ -160,7 +174,9 @@ function renderTalkDetail(talk) {
           ${talk.presentation ? `<a href="${talk.presentation}" target="_blank" rel="noopener noreferrer" class="detail-link">📊 ${t('slides')}</a>` : ''}
         </div>
       </section>
-    ` : ''}
+    `
+        : ''
+    }
   `;
 }
 

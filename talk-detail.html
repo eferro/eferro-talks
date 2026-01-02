@@ -1,45 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <title>Talk Detail - Eduardo Ferro</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <div class="header-container">
-      <div class="header-logo">
-        <img src="assets/images/logo-horizontal.png" alt="Eduardo Ferro's Talks" class="logo-img">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <title>Talk Detail - Eduardo Ferro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="header-logo">
+          <img
+            src="assets/images/logo-horizontal.png"
+            alt="Eduardo Ferro's Talks"
+            class="logo-img"
+          />
+        </div>
+        <div class="language-toggle" role="radiogroup" aria-label="Language selection">
+          <button
+            id="lang-es"
+            class="lang-btn active"
+            role="radio"
+            aria-checked="true"
+            data-lang="es"
+          >
+            ES
+          </button>
+          <button id="lang-en" class="lang-btn" role="radio" aria-checked="false" data-lang="en">
+            EN
+          </button>
+        </div>
       </div>
-      <div class="language-toggle" role="radiogroup" aria-label="Language selection">
-        <button id="lang-es" class="lang-btn active" role="radio" aria-checked="true" data-lang="es">ES</button>
-        <button id="lang-en" class="lang-btn" role="radio" aria-checked="false" data-lang="en">EN</button>
+    </header>
+
+    <main class="detail-main">
+      <div class="detail-container">
+        <a href="index.html" class="back-link" id="back-link">← Back to all talks</a>
+
+        <article class="talk-detail">
+          <div class="detail-loading">Loading talk details...</div>
+        </article>
       </div>
-    </div>
-  </header>
+    </main>
 
-  <main class="detail-main">
-    <div class="detail-container">
-      <a href="index.html" class="back-link" id="back-link">← Back to all talks</a>
+    <footer>
+      <div>
+        <p>
+          © <span id="current-year"></span> Eduardo Ferro (eferro). All rights reserved.
+          <a href="https://www.eferro.net" target="_blank" rel="noopener noreferrer"
+            >Visit my website</a
+          >
+        </p>
+      </div>
+    </footer>
 
-      <article class="talk-detail">
-        <div class="detail-loading">Loading talk details...</div>
-      </article>
-    </div>
-  </main>
-
-  <footer>
-    <div>
-      <p>
-        © <span id="current-year"></span> Eduardo Ferro (eferro). All rights reserved.
-        <a href="https://www.eferro.net" target="_blank" rel="noopener noreferrer">Visit my website</a>
-      </p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="talk-detail.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="talk-detail.js"></script>
+  </body>
 </html>

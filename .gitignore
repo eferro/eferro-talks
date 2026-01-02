@@ -4,3 +4,11 @@
 
 # Backup files
 *.backup
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Test coverage
+coverage/
+.vitest/

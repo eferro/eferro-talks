@@ -15,20 +15,42 @@ A minimalist static site showcasing Eduardo Ferro's talks and presentations.
 
 ### Quick Start
 
-1. Start a local web server:
+1. Install dependencies:
+
 ```bash
-python3 -m http.server 8000
+npm install
 ```
 
-2. Open your browser and navigate to:
+2. Start the development server:
+
+```bash
+npm start
+```
+
+3. Open your browser and navigate to:
+
 ```
 http://localhost:8000
 ```
 
-### Alternative: Using Node.js
+## Testing
+
+Run tests:
 
 ```bash
-npx http-server -p 8000
+npm test
+```
+
+Run tests with coverage:
+
+```bash
+npm run test:coverage
+```
+
+Watch mode for TDD:
+
+```bash
+npm run test:watch
 ```
 
 ## Project Structure
@@ -38,8 +60,13 @@ npx http-server -p 8000
 ├── index.html          # Main HTML file
 ├── style.css           # Stylesheet
 ├── script.js           # JavaScript logic
+├── script-utils.js     # Testable utility functions
+├── talk-detail.js      # Talk detail page logic
 ├── data/
 │   └── talks.json      # Talks data (41 talks)
+├── tests/
+│   └── frontend/
+│       └── script.test.js  # Unit tests
 └── docs/
     └── implementation-plan.md
 ```

@@ -1,87 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="assets/images/favicon.png">
-  <title>Eduardo Ferro - Talks</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <div class="header-container">
-      <div class="header-logo">
-        <img src="assets/images/logo-horizontal.png" alt="Eduardo Ferro's Talks" class="logo-img">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+    <title>Eduardo Ferro - Talks</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="header-logo">
+          <img
+            src="assets/images/logo-horizontal.png"
+            alt="Eduardo Ferro's Talks"
+            class="logo-img"
+          />
+        </div>
+        <p class="header-subtitle" id="page-subtitle">
+          Una colección de charlas y presentaciones de Eduardo Ferro
+        </p>
+        <div class="language-toggle" role="radiogroup" aria-label="Language selection">
+          <button
+            id="lang-es"
+            class="lang-btn active"
+            role="radio"
+            aria-checked="true"
+            data-lang="es"
+          >
+            ES
+          </button>
+          <button id="lang-en" class="lang-btn" role="radio" aria-checked="false" data-lang="en">
+            EN
+          </button>
+        </div>
       </div>
-      <p class="header-subtitle" id="page-subtitle">Una colección de charlas y presentaciones de Eduardo Ferro</p>
-      <div class="language-toggle" role="radiogroup" aria-label="Language selection">
-        <button
-          id="lang-es"
-          class="lang-btn active"
-          role="radio"
-          aria-checked="true"
-          data-lang="es">
-          ES
-        </button>
-        <button
-          id="lang-en"
-          class="lang-btn"
-          role="radio"
-          aria-checked="false"
-          data-lang="en">
-          EN
-        </button>
-      </div>
-    </div>
-  </header>
-  
-  <main>
-    <div class="controls">
-      <div class="search-container">
-        <input type="text" id="search-input" placeholder="Buscar charlas..." aria-label="Buscar charlas">
-      </div>
-      
-      <div class="filters">
-        <select id="year-filter" aria-label="Filtrar por año">
-          <option value="">Todos los años</option>
-        </select>
+    </header>
 
-        <select id="language-filter" aria-label="Filtrar por idioma">
-          <option value="">Todos los idiomas</option>
-          <option value="Spanish">Español</option>
-          <option value="English">Inglés</option>
-        </select>
+    <main>
+      <div class="controls">
+        <div class="search-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Buscar charlas..."
+            aria-label="Buscar charlas"
+          />
+        </div>
 
-        <select id="type-filter" aria-label="Filtrar por tipo">
-          <option value="">Todos los tipos</option>
-        </select>
+        <div class="filters">
+          <select id="year-filter" aria-label="Filtrar por año">
+            <option value="">Todos los años</option>
+          </select>
 
-        <label class="checkbox-label">
-          <input type="checkbox" id="core-filter">
-          <span>Solo charlas core</span>
-        </label>
+          <select id="language-filter" aria-label="Filtrar por idioma">
+            <option value="">Todos los idiomas</option>
+            <option value="Spanish">Español</option>
+            <option value="English">Inglés</option>
+          </select>
+
+          <select id="type-filter" aria-label="Filtrar por tipo">
+            <option value="">Todos los tipos</option>
+          </select>
+
+          <label class="checkbox-label">
+            <input type="checkbox" id="core-filter" />
+            <span>Solo charlas core</span>
+          </label>
+        </div>
+
+        <div class="results-count">
+          <span id="results-count">0</span>
+        </div>
       </div>
-      
-      <div class="results-count">
-        <span id="results-count">0</span>
+
+      <div id="talks-container" class="talks-container">
+        <div class="loading">Cargando charlas...</div>
       </div>
-    </div>
-    
-    <div id="talks-container" class="talks-container">
-      <div class="loading">Cargando charlas...</div>
-    </div>
-  </main>
-  
-  <footer>
-    <div>
-      <p>
-        © <span id="current-year"></span> Eduardo Ferro (eferro). All rights reserved.
-        <a href="https://www.eferro.net" target="_blank" rel="noopener noreferrer">Visit my website</a>
-      </p>
-    </div>
-  </footer>
-  
-  <script src="script.js?v=20260102"></script>
-</body>
+    </main>
+
+    <footer>
+      <div>
+        <p>
+          © <span id="current-year"></span> Eduardo Ferro (eferro). All rights reserved.
+          <a href="https://www.eferro.net" target="_blank" rel="noopener noreferrer"
+            >Visit my website</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script src="script.js?v=20260102"></script>
+  </body>
 </html>
-

@@ -116,7 +116,10 @@ async function loadTalks() {
     console.log('DEBUG loadTalks: Total talks loaded:', allTalks.length);
     console.log('DEBUG loadTalks: First talk:', allTalks[0]);
     console.log('DEBUG loadTalks: First talk keys:', Object.keys(allTalks[0]));
-    console.log('DEBUG loadTalks: talk_language values:', allTalks.slice(0, 5).map(t => t.talk_language));
+    console.log(
+      'DEBUG loadTalks: talk_language values:',
+      allTalks.slice(0, 5).map(t => t.talk_language)
+    );
     filteredTalks = [...allTalks];
     initializeFilters();
     renderTalks();
@@ -173,7 +176,10 @@ function applyFilters() {
         getTalkField(talk, 'description'),
         talk.place,
         getTalkField(talk, 'key_learning')
-      ].filter(Boolean).join(' ').toLowerCase();
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
       if (!searchableText.includes(searchQuery)) return false;
     }
     return true;
@@ -215,20 +221,20 @@ function renderTalks() {
       .join(', ');
     resultsCount.textContent = `${filteredTalks.length} (${typeLabels})`;
   }
-  
+
   const sortedTalks = [...filteredTalks].sort((a, b) => {
     const yearA = parseInt(a.year) || 0;
     const yearB = parseInt(b.year) || 0;
     return yearB - yearA;
   });
-  
+
   const fragment = document.createDocumentFragment();
-  
+
   sortedTalks.forEach(talk => {
     const card = createTalkCard(talk);
     fragment.appendChild(card);
   });
-  
+
   container.innerHTML = '';
   container.appendChild(fragment);
 }
@@ -271,13 +277,17 @@ function createTalkCard(talk) {
 
     ${getTalkField(talk, 'description') ? `<p class="talk-description">${escapeHtml(getTalkField(talk, 'description'))}</p>` : ''}
 
-    ${hasDetailContent ? `
+    ${
+      hasDetailContent
+        ? `
       <div class="talk-actions">
         <a href="talk-detail.html?id=${talkId}" class="detail-button">
           📖 ${t('viewFullDetails')}
         </a>
       </div>
-    ` : ''}
+    `
+        : ''
+    }
 
     <div class="talk-links">
       ${talk.blog ? `<a href="${talk.blog}" target="_blank" rel="noopener noreferrer" class="talk-link">📝 Blog</a>` : ''}
@@ -313,3 +323,18 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('current-year').textContent = new Date().getFullYear();
 });
 
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    escapeHtml,
+    t,
+    getTalkField,
+    loadTalks,
+    applyFilters,
+    renderTalks,
+    createTalkCard,
+    createTalkId,
+    setLanguage,
+    updateUILanguage,
+    initializeFilters
+  };
+}

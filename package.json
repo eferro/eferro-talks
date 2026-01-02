@@ -1,0 +1,32 @@
+{
+  "name": "eferro-talks",
+  "version": "1.0.0",
+  "description": "A minimalist static site showcasing Eduardo Ferro's talks and presentations",
+  "type": "module",
+  "scripts": {
+    "start": "http-server -p 8000 -c-1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate": "npm run format:check && npm run lint && npm test",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@vitest/coverage-v8": "^2.1.8",
+    "@vitest/ui": "^2.1.8",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.0.0",
+    "happy-dom": "^15.11.7",
+    "http-server": "^14.1.1",
+    "husky": "^9.1.7",
+    "prettier": "^3.7.4",
+    "vitest": "^2.1.8"
+  }
+}

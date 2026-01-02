@@ -1,0 +1,9 @@
+node_modules
+coverage
+.vitest
+data
+package-lock.json
+*.min.js
+*.backup
+.agents
+.claude

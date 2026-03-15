@@ -1,4 +1,10 @@
-import { escapeHtml, getTalkField, createTalkId } from './script-utils.js';
+import {
+  escapeHtml,
+  getTalkField,
+  createTalkId,
+  updateMetaTag,
+  updateOgTag
+} from './script-utils.js';
 
 let allTalks = [];
 let filteredTalks = [];
@@ -8,6 +14,7 @@ const translations = {
   es: {
     title: 'Charlas',
     subtitle: 'Una colección de charlas y presentaciones de Eduardo Ferro',
+    metaDescription: 'Una colección de charlas y presentaciones sobre desarrollo de software',
     searchPlaceholder: 'Buscar charlas...',
     searchLabel: 'Buscar charlas',
     allYears: 'Todos los años',
@@ -32,6 +39,7 @@ const translations = {
   en: {
     title: 'Talks',
     subtitle: 'A collection of talks and presentations by Eduardo Ferro',
+    metaDescription: 'A collection of talks and presentations about software development',
     searchPlaceholder: 'Search talks...',
     searchLabel: 'Search talks',
     allYears: 'All Years',
@@ -81,6 +89,10 @@ function updateUILanguage() {
   }
 
   document.querySelector('.checkbox-label span').textContent = t('coreOnly');
+
+  updateMetaTag('description', t('metaDescription'));
+  updateOgTag('og:title', t('title'));
+  updateOgTag('og:description', t('metaDescription'));
 }
 
 function setLanguage(lang) {

@@ -23,3 +23,23 @@ export function createTalkId(talk) {
 export function t(key, translations, currentLanguage) {
   return translations[currentLanguage][key] || key;
 }
+
+export function updateMetaTag(name, content) {
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('name', name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+export function updateOgTag(property, content) {
+  let meta = document.querySelector(`meta[property="${property}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('property', property);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}

@@ -1,5 +1,11 @@
-import { describe, it, expect } from 'vitest';
-import { escapeHtml, getTalkField, createTalkId } from '../../script-utils.js';
+import { describe, it, expect, beforeEach } from 'vitest';
+import {
+  escapeHtml,
+  getTalkField,
+  createTalkId,
+  updateMetaTag,
+  updateOgTag
+} from '../../script-utils.js';
 
 describe('escapeHtml', () => {
   it('should escape HTML script tags', () => {
@@ -142,5 +148,51 @@ describe('createTalkId', () => {
     const result = createTalkId(talk);
 
     expect(result).toBe('2022-event-with-multiple-spaces');
+  });
+});
+
+describe('updateMetaTag', () => {
+  beforeEach(() => {
+    document.head.querySelectorAll('meta[name]').forEach(el => el.remove());
+  });
+
+  it('should create a new meta tag when none exists', () => {
+    updateMetaTag('description', 'A collection of talks');
+
+    const meta = document.querySelector('meta[name="description"]');
+    expect(meta).not.toBeNull();
+    expect(meta.getAttribute('content')).toBe('A collection of talks');
+  });
+
+  it('should update an existing meta tag', () => {
+    updateMetaTag('description', 'Original content');
+    updateMetaTag('description', 'Updated content');
+
+    const metas = document.querySelectorAll('meta[name="description"]');
+    expect(metas.length).toBe(1);
+    expect(metas[0].getAttribute('content')).toBe('Updated content');
+  });
+});
+
+describe('updateOgTag', () => {
+  beforeEach(() => {
+    document.head.querySelectorAll('meta[property]').forEach(el => el.remove());
+  });
+
+  it('should create a new OG meta tag when none exists', () => {
+    updateOgTag('og:title', 'My Talk');
+
+    const meta = document.querySelector('meta[property="og:title"]');
+    expect(meta).not.toBeNull();
+    expect(meta.getAttribute('content')).toBe('My Talk');
+  });
+
+  it('should update an existing OG meta tag', () => {
+    updateOgTag('og:title', 'Original title');
+    updateOgTag('og:title', 'Updated title');
+
+    const metas = document.querySelectorAll('meta[property="og:title"]');
+    expect(metas.length).toBe(1);
+    expect(metas[0].getAttribute('content')).toBe('Updated title');
   });
 });

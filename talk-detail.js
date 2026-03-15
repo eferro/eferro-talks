@@ -96,6 +96,13 @@ function showError(message) {
   container.innerHTML = `<div class="error-message">${message}</div>`;
 }
 
+function updatePageMetaTags(name, description) {
+  document.title = name;
+  updateMetaTag('description', description || name);
+  updateOgTag('og:title', name);
+  updateOgTag('og:description', description || name);
+}
+
 function renderTalkDetail(talk) {
   const container = document.querySelector('.talk-detail');
 
@@ -103,6 +110,8 @@ function renderTalkDetail(talk) {
   const description = getTalkField(talk, 'description');
   const keyLearning = getTalkField(talk, 'key_learning');
   const keyPoints = getTalkField(talk, 'key_points');
+
+  updatePageMetaTags(name, description);
 
   const language = talk.talk_language || 'Unknown';
   const languageClass = language.toLowerCase();
@@ -185,6 +194,26 @@ function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+function updateMetaTag(name, content) {
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('name', name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
+}
+
+function updateOgTag(property, content) {
+  let meta = document.querySelector(`meta[property="${property}"]`);
+  if (!meta) {
+    meta = document.createElement('meta');
+    meta.setAttribute('property', property);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute('content', content);
 }
 
 function setLanguage(lang) {

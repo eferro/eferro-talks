@@ -35,8 +35,7 @@ const translations = {
     loading: 'Cargando charlas...',
     noResults: 'No se encontraron charlas que coincidan con tus filtros.',
     errorLoading: 'Error al cargar las charlas. Por favor, recarga la página.',
-    viewFullDetails: 'Ver detalles completos',
-    interfaceLanguageHint: 'Idioma de la interfaz'
+    viewFullDetails: 'Ver detalles completos'
   },
   en: {
     title: 'Talks',
@@ -61,8 +60,7 @@ const translations = {
     loading: 'Loading talks...',
     noResults: 'No talks found matching your filters.',
     errorLoading: 'Error loading talks. Please refresh the page.',
-    viewFullDetails: 'View full details',
-    interfaceLanguageHint: 'Interface language'
+    viewFullDetails: 'View full details'
   }
 };
 
@@ -92,8 +90,6 @@ function updateUILanguage() {
   }
 
   document.querySelector('.checkbox-label span').textContent = t('coreOnly');
-
-  document.getElementById('language-toggle-hint').textContent = t('interfaceLanguageHint');
 
   updateMetaTag('description', t('metaDescription'));
   updateOgTag('og:title', t('title'));

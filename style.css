@@ -125,12 +125,25 @@ header h1 {
   margin-bottom: 0;
 }
 
+.language-toggle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
 .language-toggle {
   display: flex;
   gap: var(--spacing-sm);
   justify-content: center;
   padding: 0;
   flex-shrink: 0;
+}
+
+.language-toggle-hint {
+  font-size: 0.75rem;
+  color: var(--text-gray-light);
+  text-align: center;
 }
 
 .lang-btn {

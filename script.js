@@ -3,7 +3,8 @@ import {
   getTalkField,
   createTalkId,
   updateMetaTag,
-  updateOgTag
+  updateOgTag,
+  interfaceLanguageToContentFilter
 } from './script-utils.js';
 
 let allTalks = [];
@@ -34,7 +35,8 @@ const translations = {
     loading: 'Cargando charlas...',
     noResults: 'No se encontraron charlas que coincidan con tus filtros.',
     errorLoading: 'Error al cargar las charlas. Por favor, recarga la página.',
-    viewFullDetails: 'Ver detalles completos'
+    viewFullDetails: 'Ver detalles completos',
+    interfaceLanguageHint: 'Idioma de la interfaz'
   },
   en: {
     title: 'Talks',
@@ -59,7 +61,8 @@ const translations = {
     loading: 'Loading talks...',
     noResults: 'No talks found matching your filters.',
     errorLoading: 'Error loading talks. Please refresh the page.',
-    viewFullDetails: 'View full details'
+    viewFullDetails: 'View full details',
+    interfaceLanguageHint: 'Interface language'
   }
 };
 
@@ -90,6 +93,8 @@ function updateUILanguage() {
 
   document.querySelector('.checkbox-label span').textContent = t('coreOnly');
 
+  document.getElementById('language-toggle-hint').textContent = t('interfaceLanguageHint');
+
   updateMetaTag('description', t('metaDescription'));
   updateOgTag('og:title', t('title'));
   updateOgTag('og:description', t('metaDescription'));
@@ -106,7 +111,13 @@ function setLanguage(lang) {
   });
 
   updateUILanguage();
-  renderTalks();
+  syncContentFilterWithLanguage(lang);
+}
+
+function syncContentFilterWithLanguage(lang) {
+  const languageFilter = document.getElementById('language-filter');
+  languageFilter.value = interfaceLanguageToContentFilter(lang);
+  applyFilters();
 }
 
 async function loadTalks() {

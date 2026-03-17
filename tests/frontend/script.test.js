@@ -4,7 +4,8 @@ import {
   getTalkField,
   createTalkId,
   updateMetaTag,
-  updateOgTag
+  updateOgTag,
+  interfaceLanguageToContentFilter
 } from '../../script-utils.js';
 
 describe('escapeHtml', () => {
@@ -171,6 +172,26 @@ describe('updateMetaTag', () => {
     const metas = document.querySelectorAll('meta[name="description"]');
     expect(metas.length).toBe(1);
     expect(metas[0].getAttribute('content')).toBe('Updated content');
+  });
+});
+
+describe('interfaceLanguageToContentFilter', () => {
+  it('should map es to Spanish', () => {
+    const result = interfaceLanguageToContentFilter('es');
+
+    expect(result).toBe('Spanish');
+  });
+
+  it('should map en to English', () => {
+    const result = interfaceLanguageToContentFilter('en');
+
+    expect(result).toBe('English');
+  });
+
+  it('should return empty string for unknown language', () => {
+    const result = interfaceLanguageToContentFilter('fr');
+
+    expect(result).toBe('');
   });
 });
 

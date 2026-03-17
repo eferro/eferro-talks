@@ -12,7 +12,8 @@ const translations = {
     slides: 'Presentación',
     loadingError: 'Error al cargar los detalles de la charla.',
     notFound: 'Charla no encontrada.',
-    metadata: 'Información'
+    metadata: 'Información',
+    interfaceLanguageHint: 'Idioma de la interfaz'
   },
   en: {
     backToTalks: '← Back to all talks',
@@ -25,7 +26,8 @@ const translations = {
     slides: 'Slides',
     loadingError: 'Error loading talk details.',
     notFound: 'Talk not found.',
-    metadata: 'Information'
+    metadata: 'Information',
+    interfaceLanguageHint: 'Interface language'
   }
 };
 
@@ -229,6 +231,7 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   document.getElementById('page-title').textContent = t('description');
   document.getElementById('back-link').textContent = t('backToTalks');
+  document.getElementById('language-toggle-hint').textContent = t('interfaceLanguageHint');
 
   loadTalkDetail();
 }

@@ -24,6 +24,15 @@ export function t(key, translations, currentLanguage) {
   return translations[currentLanguage][key] || key;
 }
 
+const INTERFACE_TO_CONTENT_LANGUAGE = {
+  es: 'Spanish',
+  en: 'English'
+};
+
+export function interfaceLanguageToContentFilter(interfaceLang) {
+  return INTERFACE_TO_CONTENT_LANGUAGE[interfaceLang] || '';
+}
+
 export function updateMetaTag(name, content) {
   let meta = document.querySelector(`meta[name="${name}"]`);
   if (!meta) {

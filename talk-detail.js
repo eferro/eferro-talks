@@ -60,10 +60,6 @@ function getTalkIdFromUrl() {
   return params.get('id');
 }
 
-function createTalkId(talk) {
-  return `${talk.year}-${talk.place}`.toLowerCase().replace(/\s+/g, '-');
-}
-
 async function loadTalkDetail() {
   const talkId = getTalkIdFromUrl();
 
@@ -77,7 +73,7 @@ async function loadTalkDetail() {
     if (!response.ok) throw new Error('Failed to load talks');
 
     const talks = await response.json();
-    const talk = talks.find(t => createTalkId(t) === talkId);
+    const talk = talks.find(t => t.slug === talkId);
 
     if (!talk) {
       showError(t('notFound'));

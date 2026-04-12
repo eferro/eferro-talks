@@ -1,7 +1,9 @@
 import {
   escapeHtml,
   getTalkField,
-  createTalkId,
+  filterTalks,
+  countByType,
+  sortByYearDescending,
   updateMetaTag,
   updateOgTag,
   interfaceLanguageToContentFilter
@@ -175,24 +177,13 @@ function applyFilters() {
   const coreFilter = document.getElementById('core-filter').checked;
   const searchQuery = document.getElementById('search-input').value.toLowerCase().trim();
 
-  filteredTalks = allTalks.filter(talk => {
-    if (yearFilter && talk.year !== yearFilter) return false;
-    if (languageFilter && talk.talk_language !== languageFilter) return false;
-    if (typeFilter && talk.type !== typeFilter) return false;
-    if (coreFilter && !talk.core) return false;
-    if (searchQuery) {
-      const searchableText = [
-        getTalkField(talk, 'name', currentLanguage),
-        getTalkField(talk, 'description', currentLanguage),
-        talk.place,
-        getTalkField(talk, 'key_learning', currentLanguage)
-      ]
-        .filter(Boolean)
-        .join(' ')
-        .toLowerCase();
-      if (!searchableText.includes(searchQuery)) return false;
-    }
-    return true;
+  filteredTalks = filterTalks(allTalks, {
+    year: yearFilter,
+    language: languageFilter,
+    type: typeFilter,
+    core: coreFilter,
+    search: searchQuery,
+    lang: currentLanguage
   });
 
   renderTalks();
@@ -208,11 +199,7 @@ function renderTalks() {
     return;
   }
 
-  const typeCounts = filteredTalks.reduce((acc, talk) => {
-    const type = talk.type || 'unknown';
-    acc[type] = (acc[type] || 0) + 1;
-    return acc;
-  }, {});
+  const typeCounts = countByType(filteredTalks);
 
   const typeEntries = Object.entries(typeCounts).sort(([a], [b]) => a.localeCompare(b));
 
@@ -232,11 +219,7 @@ function renderTalks() {
     resultsCount.textContent = `${filteredTalks.length} (${typeLabels})`;
   }
 
-  const sortedTalks = [...filteredTalks].sort((a, b) => {
-    const yearA = parseInt(a.year) || 0;
-    const yearB = parseInt(b.year) || 0;
-    return yearB - yearA;
-  });
+  const sortedTalks = sortByYearDescending(filteredTalks);
 
   const fragment = document.createDocumentFragment();
 
@@ -261,7 +244,7 @@ function createTalkCard(talk) {
     allKeys: Object.keys(talk)
   });
   const languageClass = language.toLowerCase();
-  const talkId = createTalkId(talk);
+  const talkId = talk.slug;
   const hasKeyLearning = getTalkField(talk, 'key_learning', currentLanguage);
   const hasKeyPoints = getTalkField(talk, 'key_points', currentLanguage);
   const hasDetailContent = hasKeyLearning || hasKeyPoints;
@@ -331,7 +314,6 @@ if (typeof module !== 'undefined' && module.exports) {
     applyFilters,
     renderTalks,
     createTalkCard,
-    createTalkId,
     setLanguage,
     updateUILanguage,
     initializeFilters

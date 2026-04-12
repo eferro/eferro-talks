@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import {
   escapeHtml,
   getTalkField,
-  createTalkId,
+  t,
   updateMetaTag,
   updateOgTag,
   interfaceLanguageToContentFilter
@@ -106,52 +106,6 @@ describe('getTalkField', () => {
   });
 });
 
-describe('createTalkId', () => {
-  it('should create ID from year and place', () => {
-    const talk = {
-      year: '2025',
-      place: 'BarcelonaSoftwareCrafters'
-    };
-
-    const result = createTalkId(talk);
-
-    expect(result).toBe('2025-barcelonasoftwarecrafters');
-  });
-
-  it('should replace spaces with hyphens', () => {
-    const talk = {
-      year: '2024',
-      place: 'Pamplona Software Crafters'
-    };
-
-    const result = createTalkId(talk);
-
-    expect(result).toBe('2024-pamplona-software-crafters');
-  });
-
-  it('should convert to lowercase', () => {
-    const talk = {
-      year: '2023',
-      place: 'UPPERCASE EVENT'
-    };
-
-    const result = createTalkId(talk);
-
-    expect(result).toBe('2023-uppercase-event');
-  });
-
-  it('should handle multiple consecutive spaces', () => {
-    const talk = {
-      year: '2022',
-      place: 'Event  With   Multiple    Spaces'
-    };
-
-    const result = createTalkId(talk);
-
-    expect(result).toBe('2022-event-with-multiple-spaces');
-  });
-});
-
 describe('updateMetaTag', () => {
   beforeEach(() => {
     document.head.querySelectorAll('meta[name]').forEach(el => el.remove());
@@ -192,6 +146,25 @@ describe('interfaceLanguageToContentFilter', () => {
     const result = interfaceLanguageToContentFilter('fr');
 
     expect(result).toBe('');
+  });
+});
+
+describe('t', () => {
+  const translations = {
+    es: { title: 'Charlas', loading: 'Cargando...' },
+    en: { title: 'Talks', loading: 'Loading...' }
+  };
+
+  it('should return the translation for an existing key', () => {
+    const result = t('title', translations, 'es');
+
+    expect(result).toBe('Charlas');
+  });
+
+  it('should return the key itself when translation is missing', () => {
+    const result = t('nonExistentKey', translations, 'es');
+
+    expect(result).toBe('nonExistentKey');
   });
 });
 

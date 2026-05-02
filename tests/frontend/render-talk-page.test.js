@@ -101,6 +101,21 @@ describe('renderTalkPageHtml', () => {
     expect(html).toContain('src="../../assets/images/logo-horizontal.png"');
   });
 
+  it('renders key_points markdown as a real list, not raw <pre> text', () => {
+    const html = renderTalkPageHtml(sampleTalk, opts);
+
+    expect(html).toContain('<ul>');
+    expect(html).toContain('<li>Point A</li>');
+    expect(html).toContain('<li>Point B</li>');
+    expect(html).not.toContain('<pre>- Point A');
+  });
+
+  it('renders key_learning markdown so **bold** becomes <strong>', () => {
+    const html = renderTalkPageHtml(sampleTalk, opts);
+
+    expect(html).toContain('<strong>simplicity</strong>');
+  });
+
   it('includes external links when present', () => {
     const html = renderTalkPageHtml(sampleTalk, opts);
 

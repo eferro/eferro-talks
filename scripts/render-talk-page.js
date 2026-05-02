@@ -1,3 +1,12 @@
+import { marked } from 'marked';
+
+marked.setOptions({ gfm: true, breaks: true });
+
+function renderMarkdown(text) {
+  if (!text) return '';
+  return marked.parse(String(text));
+}
+
 const HTML_ESCAPES = {
   '&': '&amp;',
   '<': '&lt;',
@@ -150,7 +159,7 @@ export function renderTalkPageHtml(talk, opts = {}) {
             keyLearning
               ? `<section class="detail-section key-learning-section">
             <h2>🎯 Key Learning</h2>
-            <div class="detail-content markdown-content"><p>${escapeHtml(keyLearning)}</p></div>
+            <div class="detail-content markdown-content">${renderMarkdown(keyLearning)}</div>
           </section>`
               : ''
           }
@@ -159,7 +168,7 @@ export function renderTalkPageHtml(talk, opts = {}) {
             keyPoints
               ? `<section class="detail-section key-points-section">
             <h2>📋 Key Points</h2>
-            <div class="detail-content markdown-content"><pre>${escapeHtml(keyPoints)}</pre></div>
+            <div class="detail-content markdown-content">${renderMarkdown(keyPoints)}</div>
           </section>`
               : ''
           }

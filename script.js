@@ -270,7 +270,7 @@ function createTalkCard(talk) {
       hasDetailContent
         ? `
       <div class="talk-actions">
-        <a href="talk-detail.html?id=${talkId}" class="detail-button">
+        <a href="talks/${talkId}/" class="detail-button">
           📖 ${t('viewFullDetails')}
         </a>
       </div>

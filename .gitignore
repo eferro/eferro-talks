@@ -11,3 +11,8 @@ node_modules/
 # Test coverage
 coverage/
 .vitest/
+
+# Generated per-talk pages (built by scripts/build-talks.js)
+talks/
+sitemap.xml
+robots.txt

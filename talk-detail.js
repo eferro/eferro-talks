@@ -60,6 +60,14 @@ function getTalkIdFromUrl() {
   return params.get('id');
 }
 
+function redirectLegacyUrlIfNeeded() {
+  const id = getTalkIdFromUrl();
+  if (!id) return false;
+  if (!/^[a-z0-9-]+$/i.test(id)) return false;
+  window.location.replace(`talks/${id}/`);
+  return true;
+}
+
 async function loadTalkDetail() {
   const talkId = getTalkIdFromUrl();
 
@@ -229,6 +237,8 @@ function setLanguage(lang) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (redirectLegacyUrlIfNeeded()) return;
+
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const isActive = btn.dataset.lang === currentLanguage;
     btn.classList.toggle('active', isActive);

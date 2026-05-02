@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "http-server -p 8000 -c-1",
+    "build": "node scripts/build-talks.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -13,7 +14,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate": "npm run format:check && npm run lint && npm test",
+    "validate": "npm run format:check && npm run lint && npm test && npm run build",
     "prepare": "husky"
   },
   "devDependencies": {
